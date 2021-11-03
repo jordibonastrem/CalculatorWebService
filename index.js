@@ -1,20 +1,32 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable quotes */
 const { Sum, Multiply, Divide, Substract } = require("./operations");
 
-const Calculadora = () => {
-  const numA = process.argv.slice(2)[0];
-  const numB = process.argv.slice(2)[1];
-
+const Calculadora = (numA, numB) => {
   const sumResult = Sum(numA, numB);
   const multipResult = Multiply(numA, numB);
   const divResult = Divide(numA, numB);
   const substrResult = Substract(numA, numB);
 
-  const tableOfOperations = `${numA} + ${numB} = ${sumResult} 
-${numA} - ${numB} = ${substrResult}
-${numA} * ${numB} = ${multipResult}
-${numA} / ${numB} = ${divResult}`;
-  console.log(tableOfOperations);
+  let resultHtml = "";
+  if (
+    numA === null ||
+    numB === null ||
+    Number.isNaN(numA) ||
+    Number.isNaN(numB)
+  ) {
+    resultHtml = "<div> Error </div>";
+  } else {
+    resultHtml = `
+  <div>
+  <p>${numA} + ${numB} = ${sumResult} </p>
+<p>${numA} - ${numB} = ${substrResult}</p>
+<p>${numA} * ${numB} = ${multipResult}</p>
+<p>${numA} / ${numB} = ${divResult}</p>
+<div>
+`;
+  }
+  return resultHtml;
 };
 
-console.log(Calculadora());
+module.exports = { Calculadora };
